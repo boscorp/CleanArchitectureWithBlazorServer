@@ -5,7 +5,7 @@
         <AssemblyName>CleanArchitecture.Blazor.Server.UI</AssemblyName>
         <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
-        <NoWarn>$(NoWarn);VSTHRD200</NoWarn>
+        <NoWarn>$(NoWarn);VSTHRD200;NETSDK1206</NoWarn>
         <ImplicitUsings>enable</ImplicitUsings>
         <InvariantGlobalization>false</InvariantGlobalization>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -33,11 +33,13 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <!-- Security fix for Microsoft.Build vulnerabilities -->
+        <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.14.28" />
+        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.14.28" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Migrators\Migrators.MSSQL\Migrators.MSSQL.csproj" />
         <ProjectReference Include="..\Migrators\Migrators.PostgreSQL\Migrators.PostgreSQL.csproj" />
-        <ProjectReference Include="..\Migrators\Migrators.SqLite\Migrators.SqLite.csproj" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Include="Resources\EmailTemplates\_useractivation.cshtml">

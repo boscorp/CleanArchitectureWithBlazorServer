@@ -18,7 +18,6 @@
         <PackageReference Include="Serilog.Sinks.Postgresql.Alternative" Version="4.2.0" />
         <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
         <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
-        <PackageReference Include="Blazor.Serilog.Sinks.SQLite" Version="1.0.8" />
         <PackageReference Include="Serilog.Sinks.Seq" Version="9.0.0" />
     </ItemGroup>
     <ItemGroup>

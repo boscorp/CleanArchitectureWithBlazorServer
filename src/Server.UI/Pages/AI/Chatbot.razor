@@ -30,7 +30,7 @@
                             <MudAvatar Color="Color.Primary" Size="Size.Small">
 								@if (!string.IsNullOrEmpty(UserProfile?.ProfilePictureDataUrl ?? ""))
 								{
-									<MudImage Src="@UserProfile.ProfilePictureDataUrl" />
+									<MudImage Src="@UserProfile!.ProfilePictureDataUrl" />
 								}
 								else
 								{
@@ -55,10 +55,10 @@
                         @if (message.Role == "assistant")
                         {
                             <div class="message-actions">
-                                <MudIconButton Icon="@Icons.Material.Filled.ContentCopy" 
-                                             Size="Size.Small" 
+                                <MudIconButton Icon="@Icons.Material.Filled.ContentCopy"
+                                             Size="Size.Small"
                                              Color="Color.Default"
-                                             OnClick="@(() => CopyToClipboardAsync(message.Content))"
+                                             OnClick="@(() => CopyToClipboardAsync(message.Content ?? string.Empty))"
                                              title="Copy to clipboard" />
                             </div>
                         }
@@ -297,7 +297,7 @@
 
         try
         {
-            var chatMessages = messages.Select(m => new Betalgo.Ranul.OpenAI.ObjectModels.RequestModels.ChatMessage(m.Role, m.Content)).ToList();
+            var chatMessages = messages.Select(m => new Betalgo.Ranul.OpenAI.ObjectModels.RequestModels.ChatMessage(m.Role, m.Content ?? string.Empty)).ToList();
 
             var completionResult = await OpenAIService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
             {

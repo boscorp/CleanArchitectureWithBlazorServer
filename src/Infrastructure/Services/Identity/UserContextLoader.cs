@@ -57,7 +57,7 @@ public class UserContextLoader : IUserContextLoader
                     {
                         return null;
                     }
-                    var allowedTenantIds = await userManager.Users.Where(x => x.Id == user.Id).Include(x => x.TenantUsers).ThenInclude(tu => tu.Tenant).SelectMany(x => x.TenantUsers.Select(x => x.Tenant.Id)).ToListAsync();
+                    var allowedTenantIds = await userManager.Users.Where(x => x.Id == user.Id).Include(x => x.TenantUsers).ThenInclude(tu => tu.Tenant).SelectMany(x => x.TenantUsers.Select(tu => tu.Tenant!.Id)).ToListAsync();
                     var roles = await userManager.GetRolesAsync(user);
 
                     return new UserContext(

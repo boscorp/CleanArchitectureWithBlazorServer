@@ -14,7 +14,6 @@ public abstract class DataSourceServiceBase<T> : IDataSourceService<T>
     private readonly FusionCacheEntryOptions? _cacheOptions;
     protected int DefaultLimit { get; init; } = 20;
     private readonly Func<T, string> _textSelector;
-    private readonly StringComparison _comparison=StringComparison.InvariantCultureIgnoreCase;
     protected List<T> Items { get; private set; } = new();
 
     protected DataSourceServiceBase(IFusionCache fusionCache, string cacheKey, FusionCacheEntryOptions? cacheOptions = null,Func<T, string>? textSelector = null)

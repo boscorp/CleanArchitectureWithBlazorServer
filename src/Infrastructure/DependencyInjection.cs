@@ -31,7 +31,6 @@ public static class DependencyInjection
     private const string NPGSQL_ENABLE_LEGACY_TIMESTAMP_BEHAVIOR = "Npgsql.EnableLegacyTimestampBehavior";
     private const string POSTGRESQL_MIGRATIONS_ASSEMBLY = "CleanArchitecture.Blazor.Migrators.PostgreSQL";
     private const string MSSQL_MIGRATIONS_ASSEMBLY = "CleanArchitecture.Blazor.Migrators.MSSQL";
-    private const string SQLITE_MIGRATIONS_ASSEMBLY = "CleanArchitecture.Blazor.Migrators.SqLite";
     private const string SMTP_CLIENT_OPTIONS_DEFAULT_FROM_EMAIL = "SmtpClientOptions:DefaultFromEmail";
     private const string EMAIL_TEMPLATES_PATH = "Resources/EmailTemplates";
     private const string DEFAULT_FROM_EMAIL = "noreply@blazorserver.com";
@@ -125,10 +124,6 @@ public static class DependencyInjection
                 return builder.UseSqlServer(connectionString,
                     e => e.MigrationsAssembly(MSSQL_MIGRATIONS_ASSEMBLY));
 
-            case DbProviderKeys.SqLite:
-                return builder.UseSqlite(connectionString,
-                    e => e.MigrationsAssembly(SQLITE_MIGRATIONS_ASSEMBLY));
-
             default:
                 throw new InvalidOperationException($"DB Provider {dbProvider} is not supported.");
         }
@@ -145,11 +140,6 @@ public static class DependencyInjection
 
             case DbProviderKeys.SqlServer:
                 EntityFramework.Exceptions.SqlServer.ExceptionProcessorExtensions.UseExceptionProcessor(builder);
-                return builder;
-
-
-            case DbProviderKeys.SqLite:
-                EntityFramework.Exceptions.Sqlite.ExceptionProcessorExtensions.UseExceptionProcessor(builder);
                 return builder;
 
             default:

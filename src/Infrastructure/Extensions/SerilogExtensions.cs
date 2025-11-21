@@ -75,9 +75,6 @@ public static class SerilogExtensions
             case DbProviderKeys.Npgsql:
                 WriteToNpgsql(serilogConfig, connectionString);
                 break;
-            case DbProviderKeys.SqLite:
-                WriteToSqLite(serilogConfig, "\\BlazorDashboardDb.db");
-                break;
         }
     }
 
@@ -173,18 +170,6 @@ public static class SerilogExtensions
             failureCallback: e => Console.WriteLine($"Sink error: {e.Message}")
         ));
     }
-
-    private static void WriteToSqLite(LoggerConfiguration serilogConfig, string dbname)
-    {
-        var sqlPath = Environment.CurrentDirectory + dbname;
-        const string tableName = "SystemLogs";
-        serilogConfig.WriteTo.Async(wt => wt.SQLite(
-            sqlPath,
-            tableName,
-            LogEventLevel.Information
-        ).CreateLogger());
-    }
-
 
     public static LoggerConfiguration WithUtcTime(this LoggerEnrichmentConfiguration enrichmentConfiguration)
     {
